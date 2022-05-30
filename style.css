@@ -39,5 +39,5 @@
 
 .flag {
     background-image: url('img/1200px-Flag_icon_green_4.svg\ \(1\).png');
-    background-size: contain;
+    background-size: cover;
 }

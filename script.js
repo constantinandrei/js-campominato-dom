@@ -61,28 +61,58 @@ function revealBombs(){
 function addBomb (element) {
     element.addEventListener('click', function() {
         if (gameOver){
-            revealBombs();
             return;
         }
         this.classList.add('bomb');
         gameOver = true;
+        revealBombs();
+            return;
     })
+
+    element.addEventListener('mouseup', function(e) {
+        
+        if (typeof e === 'object'){
+            if (e.button === 2){
+    
+                if (!this.classList.contains('clicked'))
+                {this.classList.toggle('flag');}
+                e.preventDefault();
+            }
+        }
+    }
+        )
+
 }
 
 function addNormalCell (element, iterator) {
-    element.addEventListener('click', function() {
+    element.addEventListener('mouseup', function(e) {
+        
+    if (typeof e === 'object'){
+        if (e.button === 2){
+
+            if (!this.classList.contains('clicked'))
+            {this.classList.toggle('flag');}
+            e.preventDefault();
+        }
+    }
+}
+    )
+
+
+    element.addEventListener ('click', function(){ 
         if (gameOver){
             revealBombs();
             return;
         }
+        this.classList.remove('flag');
         this.classList.add('clicked');
         this.innerText = bombsAndNotBombsArray[iterator];
         userPoints++;
-        points.innerHTML = userPoints;
-    })
+        points.innerHTML = userPoints;}
+    )
 
+    }
 
-}
 
 function genrateBombsList (nBombs, maxIndex){
     let bombList = [];
@@ -259,6 +289,7 @@ function generateSquare (difficolta) {
         square.classList.add('animate__animated');
         square.classList.add('animate__backInRight');
         square.style.animationDelay = `${20 * i}ms`
+        square.setAttribute('oncontextmenu', 'event.preventDefault()')
         if (bombsAndNotBombsArray[i] === 'bomb'){
             addBomb(square);
         } else {
