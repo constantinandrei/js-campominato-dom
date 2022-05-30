@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0-beta1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Campo Minato</title>
+</head>
+<body>
+    <div class="app vh-100">
+        <div class="d-flex flex-column h-100">
+            <div id="nav-bar" class="flex-shrink-0">
+                <div class="container-lg h-100">
+                    <div class="d-flex justify-content-between align-items-center h-100">
+                        <div class="col d-flex">
+                            <div class="logo-container">
+                                <img src="img/Logo.png" alt="">
+                            </div>
+                            <h1 class="ms-4">Campo Minato</h1>
+                        </div>
+                        <div class="col">
+                            <div id="game-control" class="d-flex justify-content-end align-items-center">
+                                <select id="difficolta" class="form-select" aria-label="Default select example">
+                                    <option selected>Difficoltà</option>
+                                    <option value="1">Facile</option>
+                                    <option value="2">Media</option>
+                                    <option value="3">Avanzata</option>
+                                </select>
+                                <div id="play-button" class="btn btn-primary ms-3">
+                                    Gioca
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="main" class="d-flex justify-content-center align-items-center flex-grow-1">
+                
+                    <div id="game" class="d-flex flex-wrap">
+                        Selezionare un livello di difficoltà e premere gioca
+                    </div>
+                
+            </div>
+            <div id="footer" class="flex-shrink-0">
+                <div class="container-lg h-100">
+                    <div class="d-flex h-100 align-items-center">
+                        <span>Made with Love by Boolean</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

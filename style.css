@@ -1,0 +1,35 @@
+:root {
+    --square: 75px;
+    --click-background: #7ce7ff;
+}
+
+#main {
+    background-color: #7CFFD2;
+}
+
+#nav-bar {
+    min-height: 75px;
+}
+
+#footer {
+    min-height: 50px;
+}
+
+#difficolta {
+    max-width: 200px;
+}
+
+.square {
+    height: var(--square);
+    width: var(--square);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clicked {
+    background-color: var(--click-background);
+    color: white;
+    overflow: visible;
+}
