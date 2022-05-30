@@ -31,5 +31,8 @@
 .clicked {
     background-color: var(--click-background);
     color: white;
-    overflow: visible;
+}
+
+.bomb {
+    background-color: #DD0C39;
 }

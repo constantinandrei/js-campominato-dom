@@ -1,25 +1,51 @@
 /*
 
 Consegna
-Generare una griglia di gioco quadrata , in cui ogni cella contiene un numero incrementale tra quelli compresi tra 1 e 100
-Quando l’utente clicca su ogni cella, la cella cliccata si colora di azzurro.
-Bonus
+Copiamo la griglia fatta ieri nella nuova repo e aggiungiamo la logica del gioco (attenzione: non bisogna copiare tutta la cartella dell’esercizio ma solo l’index.html, e le cartelle js/ css/ con i relativi script e fogli di stile, per evitare problemi con l’inizializzazione di git).
+Il computer deve generare 16 numeri casuali compresi nel range della griglia: le bombe.
+I numeri nella lista delle bombe non possono essere duplicati.
+In seguito l’utente clicca su una cella:
+se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba - la cella si colora di rosso e la partita termina,
+altrimenti la cella cliccata si colora di azzurro e l’utente può continuare a cliccare sulle altre celle.
+La partita termina quando il giocatore clicca su una bomba o raggiunge il numero massimo possibile di numeri consentiti.
+Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
+BONUS:
+quando si clicca su una bomba e finisce la partita, evitare che si possa cliccare su altre celle
+quando si clicca su una bomba e finisce la partita, il software scopre tutte le bombe nascoste
 L’utente indica un livello di difficoltà in base al quale viene generata una griglia di gioco quadrata, in cui ogni cella contiene un numero tra quelli compresi in un range:
 con difficoltà 1 => tra 1 e 100
 con difficoltà 2 => tra 1 e 81
 con difficoltà 3 => tra 1 e 49
-Quando l’utente clicca su ogni cella, la cella cliccata si colora di azzurro.
+al click con il tasto destro su una cella, inseriamo il flag per indicare che la cella potrebbe avere una bomba
+Il computer deve generare 16 numeri casuali - cioè le bombe - compresi nello stesso range della difficoltà prescelta.
+Consigli del giorno: :party_wizard:
+Scriviamo prima cosa vogliamo fare passo passo in italiano, dividiamo il lavoro in micro problemi.
+Ad esempio: Di cosa ho bisogno per generare i numeri?
+Proviamo sempre prima con dei console.log() per capire se stiamo ricevendo i dati giusti.
+Le validazioni e i controlli possiamo farli anche in un secondo momento.
 
 
 */
+
+// dati gioco
+let gameOver = false;
+let bombsAndNotBombsArray = [];
+let userPoints = 0;
 
 const output = document.getElementById('game');
 const playButton = document.getElementById('play-button');
 const difficolta = document.getElementById('difficolta');
 
-function addBackgroundOnClick (element) {
+function addBomb (element) {
+    element.addEventListener('click', function() {
+        this.classList.add('bomb');
+    })
+}
+
+function addNormalCell (element, iterator) {
     element.addEventListener('click', function() {
         this.classList.add('clicked');
+        this.innerText = bombsAndNotBombsArray[iterator];
     })
 }
 
@@ -37,7 +63,8 @@ function genrateBombsList (nBombs, maxIndex){
     return bombList;
     
 }
-
+// funzione che prende un array con gli indici delle bombe e restitiusce un array con posizione delle bombe
+// e con il dettaglio del numero delle bombe nei dintorni 
 function calculateBombs (numCells, bombList, gridX) {
     let gameArray = [];
     let gridArray = [];
@@ -72,7 +99,7 @@ function calculateBombs (numCells, bombList, gridX) {
         }
         
         else 
-        // calcolo per angolo alto a sinistra
+        
         {
             let bombSum = 0;
 
@@ -185,7 +212,7 @@ function generateSquare (difficolta) {
 
     let bombsArray = genrateBombsList(nBombs, numCells);
     let gridArray;
-    let gameArray = calculateBombs(numCells, bombsArray, gridX);
+    bombsAndNotBombsArray = calculateBombs(numCells, bombsArray, gridX);
 
     output.style.width = `calc(var(--square) * ${gridX})`;
 
@@ -197,19 +224,24 @@ function generateSquare (difficolta) {
         square.classList.add('animate__animated');
         square.classList.add('animate__backInRight');
         square.style.animationDelay = `${20 * i}ms`
-        addBackgroundOnClick(square);
+        if (bombsAndNotBombsArray[i] === 'bomb'){
+            addBomb(square);
+        } else {
+            addNormalCell(square, i);
+            
+        }
         output.append(square);
 
-        spanForNumber.innerText = gameArray[i];
     }
 
-    console.log(gameArray)
+    
 
 
 
 }
 
 playButton.addEventListener('click', function(){
+    bombsAndNotBombsArray = [];
     output.innerHTML = '';
     generateSquare(difficolta.value);
 })
