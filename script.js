@@ -85,7 +85,7 @@ function addBomb (element) {
 
 }
 
-function addNormalCell (element, iterator) {
+function addNormalCell (element, iterator, gridX) {
     element.addEventListener('mouseup', function(e) {
         
     if (typeof e === 'object'){
@@ -105,6 +105,7 @@ function addNormalCell (element, iterator) {
             revealBombs();
             return;
         }
+
         this.classList.remove('flag');
         if (!this.classList.contains('clicked'))
             {userPoints++;}
@@ -115,10 +116,12 @@ function addNormalCell (element, iterator) {
         if (userPoints === pointsToWin){
             winner();
         }
-    }
+        }
     )
 
-    }
+}
+
+
 
 
 function genrateBombsList (nBombs, maxIndex){
@@ -173,7 +176,6 @@ function calculateBombs (numCells, bombList, gridX) {
         else 
         
         {
-            let bombSum = 0;
 
             if (i % gridX === 0){
                 if (gameArray[index2] === 'bomb'){
@@ -268,6 +270,8 @@ function winner () {
 }
 
 
+
+
 function generateSquare (difficolta) {
     
     let gridX;
@@ -301,12 +305,12 @@ function generateSquare (difficolta) {
         square.classList.add('square');
         square.classList.add('animate__animated');
         square.classList.add('animate__backInRight');
-        square.style.animationDelay = `${20 * i}ms`
+        square.style.animationDelay = `${5 * i}ms`
         square.setAttribute('oncontextmenu', 'event.preventDefault()')
         if (bombsAndNotBombsArray[i] === 'bomb'){
             addBomb(square);
         } else {
-            addNormalCell(square, i);
+            addNormalCell(square, i, gridX);
             
         }
         output.append(square);
