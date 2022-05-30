@@ -31,6 +31,7 @@ Le validazioni e i controlli possiamo farli anche in un secondo momento.
 let gameOver = false;
 let bombsAndNotBombsArray = [];
 let userPoints = 0;
+let pointsToWin = 0;
 
 const output = document.getElementById('game');
 const playButton = document.getElementById('play-button');
@@ -105,10 +106,16 @@ function addNormalCell (element, iterator) {
             return;
         }
         this.classList.remove('flag');
+        if (!this.classList.contains('clicked'))
+            {userPoints++;}
+
         this.classList.add('clicked');
         this.innerText = bombsAndNotBombsArray[iterator];
-        userPoints++;
-        points.innerHTML = userPoints;}
+        points.innerHTML = userPoints;
+        if (userPoints === pointsToWin){
+            winner();
+        }
+    }
     )
 
     }
@@ -256,6 +263,10 @@ function calculateBombs (numCells, bombList, gridX) {
 
 }
 
+function winner () {
+    alert('Complimenti!!! hai vinto')
+}
+
 
 function generateSquare (difficolta) {
     
@@ -274,6 +285,8 @@ function generateSquare (difficolta) {
     }
 
     let numCells = gridX * gridX;
+
+    pointsToWin = numCells - nBombs;
 
     let bombsArray = genrateBombsList(nBombs, numCells);
     let gridArray;
@@ -312,6 +325,7 @@ cancelButton.addEventListener('click', function(){
     gameOver = false;
     bombsAndNotBombsArray = [];
     userPoints = 0;
+    pointsToWin = 0;
     points.innerHTML = 0;
     output.innerHTML = 'Selezionare un livello di difficoltà e premere gioca';
     gameStatus.classList.add('d-none');
