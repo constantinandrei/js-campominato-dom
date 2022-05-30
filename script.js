@@ -36,17 +36,32 @@ const output = document.getElementById('game');
 const playButton = document.getElementById('play-button');
 const difficolta = document.getElementById('difficolta');
 
+function addFlag(element){
+    element.addEventListener('contextmenu', function(){
+        this.classList.add('flag')
+    })
+}
+
 function addBomb (element) {
     element.addEventListener('click', function() {
+        if (gameOver){
+            return;
+        }
         this.classList.add('bomb');
+        gameOver = true;
     })
 }
 
 function addNormalCell (element, iterator) {
     element.addEventListener('click', function() {
+        if (gameOver){
+            return;
+        }
         this.classList.add('clicked');
         this.innerText = bombsAndNotBombsArray[iterator];
     })
+
+
 }
 
 function genrateBombsList (nBombs, maxIndex){
@@ -231,13 +246,7 @@ function generateSquare (difficolta) {
             
         }
         output.append(square);
-
     }
-
-    
-
-
-
 }
 
 playButton.addEventListener('click', function(){

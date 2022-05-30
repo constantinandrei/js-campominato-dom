@@ -36,3 +36,8 @@
 .bomb {
     background-color: #DD0C39;
 }
+
+.flag {
+    background-image: url('img/1200px-Flag_icon_green_4.svg\ \(1\).png');
+    background-size: contain;
+}
