@@ -48,9 +48,20 @@ function addFlag(element){
     })
 }
 
+function revealBombs(){
+    const cells = document.getElementsByClassName('square');
+    for (let i = 0; i < bombsAndNotBombsArray.length; i++){
+        cells[i].classList.remove('animate__animated');
+        if (bombsAndNotBombsArray[i] === 'bomb'){
+            cells[i].classList.add('bomb');
+        }
+    }
+}
+
 function addBomb (element) {
     element.addEventListener('click', function() {
         if (gameOver){
+            revealBombs();
             return;
         }
         this.classList.add('bomb');
@@ -61,6 +72,7 @@ function addBomb (element) {
 function addNormalCell (element, iterator) {
     element.addEventListener('click', function() {
         if (gameOver){
+            revealBombs();
             return;
         }
         this.classList.add('clicked');
