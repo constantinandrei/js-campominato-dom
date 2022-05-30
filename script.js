@@ -35,6 +35,12 @@ let userPoints = 0;
 const output = document.getElementById('game');
 const playButton = document.getElementById('play-button');
 const difficolta = document.getElementById('difficolta');
+const gameControl = document.getElementById('game-control');
+const points = document.getElementById('punteggio');
+const gameStatus = document.getElementById('game-status');
+const cancelButton = document.getElementById ('cancel-button');
+
+points.innerHTML = 0;
 
 function addFlag(element){
     element.addEventListener('contextmenu', function(){
@@ -59,6 +65,8 @@ function addNormalCell (element, iterator) {
         }
         this.classList.add('clicked');
         this.innerText = bombsAndNotBombsArray[iterator];
+        userPoints++;
+        points.innerHTML = userPoints;
     })
 
 
@@ -253,5 +261,16 @@ playButton.addEventListener('click', function(){
     bombsAndNotBombsArray = [];
     output.innerHTML = '';
     generateSquare(difficolta.value);
+    gameControl.classList.add('d-none');
+    gameStatus.classList.remove('d-none');
 })
 
+cancelButton.addEventListener('click', function(){
+    gameOver = false;
+    bombsAndNotBombsArray = [];
+    userPoints = 0;
+    points.innerHTML = 0;
+    output.innerHTML = 'Selezionare un livello di difficoltà e premere gioca';
+    gameStatus.classList.add('d-none');
+    gameControl.classList.remove('d-none');
+})
